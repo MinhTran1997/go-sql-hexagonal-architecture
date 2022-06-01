@@ -1,0 +1,5 @@
+[
+    {"id": "ironman", "productName": "tony.stark", "description": "tony.stark@gmail.com", "price": "0987654321", "status": "1963-03-25T00:00:00+07:00"},
+    {"id": "spiderman", "productName": "peter.parker", "description": "peter.parker@gmail.com", "price": "0987654321", "status": "1962-08-25T00:00:00+07:00"},
+    {"id": "wolverine", "productName": "james.howlett", "description": "james.howlett@gmail.com", "price": "0987654321", "status": "1974-11-16T00:00:00+07:00"}
+]
