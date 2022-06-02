@@ -42,7 +42,7 @@ func NewApp(ctx context.Context, conf Config) (*ApplicationContext, error) {
 		}
 		productRepository := NewproductClient(client, conf.Client.Endpoint.Url)*/
 	productRepository := repository.NewProductAdapter(db)
-	productService := NewProductService(productRepository)
+	productService := NewProductService(db, productRepository)
 	productHandler := handler.NewProductHandler(productSearchBuilder.Search, productService, logError)
 
 	sqlChecker := q.NewHealthChecker(db)

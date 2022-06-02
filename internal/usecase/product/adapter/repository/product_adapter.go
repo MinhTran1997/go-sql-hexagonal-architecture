@@ -32,18 +32,21 @@ func (r *ProductAdapter) Load(ctx context.Context, id string) (*Product, error) 
 
 func (r *ProductAdapter) Create(ctx context.Context, product *Product) (int64, error) {
 	query, args := q.BuildToInsert("products", product, q.BuildParam)
-	res, err := r.DB.ExecContext(ctx, query, args...)
+
+	tx := GetTx(ctx)
+	res, err := tx.ExecContext(ctx, query, args...)
 	if err != nil {
-		return -1, nil
+		return -1, err
 	}
 	return res.RowsAffected()
 }
 
 func (r *ProductAdapter) Update(ctx context.Context, product *Product) (int64, error) {
 	query, args := q.BuildToUpdate("products", product, q.BuildParam)
-	res, err := r.DB.ExecContext(ctx, query, args...)
+	tx := GetTx(ctx)
+	res, err := tx.ExecContext(ctx, query, args...)
 	if err != nil {
-		return -1, nil
+		return -1, err
 	}
 	return res.RowsAffected()
 }
@@ -54,7 +57,9 @@ func (r *ProductAdapter) Patch(ctx context.Context, product map[string]interface
 	colMap := q.JSONToColumns(product, jsonColumnMap)
 	keys, _ := q.FindPrimaryKeys(productType)
 	query, args := q.BuildToPatch("products", colMap, keys, q.BuildParam)
-	res, err := r.DB.ExecContext(ctx, query, args...)
+
+	tx := GetTx(ctx)
+	res, err := tx.ExecContext(ctx, query, args...)
 	if err != nil {
 		return -1, err
 	}
@@ -62,14 +67,23 @@ func (r *ProductAdapter) Patch(ctx context.Context, product map[string]interface
 }
 
 func (r *ProductAdapter) Delete(ctx context.Context, id string) (int64, error) {
-	query := "delete from products where id = ?"
-	stmt, er0 := r.DB.Prepare(query)
-	if er0 != nil {
-		return -1, nil
-	}
-	res, er1 := stmt.ExecContext(ctx, id)
+	query := fmt.Sprintf("delete from products where id = %s", q.BuildParam(1))
+
+	tx := GetTx(ctx)
+	res, er1 := tx.ExecContext(ctx, query, id)
 	if er1 != nil {
 		return -1, er1
 	}
 	return res.RowsAffected()
+}
+
+func GetTx(ctx context.Context) *sql.Tx {
+	txi := ctx.Value("tx")
+	if txi != nil {
+		txx, ok := txi.(*sql.Tx)
+		if ok {
+			return txx
+		}
+	}
+	return nil
 }
