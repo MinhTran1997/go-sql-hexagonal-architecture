@@ -35,12 +35,7 @@ func NewApp(ctx context.Context, conf Config) (*ApplicationContext, error) {
 	if err != nil {
 		return nil, err
 	}
-	/*
-		client, _, _, err := client.InitializeClient(conf.Client)
-		if err != nil {
-			return nil, err
-		}
-		productRepository := NewproductClient(client, conf.Client.Endpoint.Url)*/
+
 	productRepository := repository.NewProductAdapter(db)
 	productService := NewProductService(db, productRepository)
 	productHandler := handler.NewProductHandler(productSearchBuilder.Search, productService, logError)

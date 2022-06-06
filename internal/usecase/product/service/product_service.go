@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
-
+	"errors"
 	. "go-service/internal/usecase/product/domain"
 	. "go-service/internal/usecase/product/port"
 )
@@ -32,6 +32,10 @@ func (s *productService) Load(ctx context.Context, id string) (*Product, error) 
 	return s.repository.Load(ctx, id)
 }
 func (s *productService) Create(ctx context.Context, product *Product) (int64, error) {
+	err := checkProductGeneralReq(product.GeneralInfo)
+	if err != nil {
+		return -1, nil
+	}
 	tx, err := s.db.Begin()
 	if err != nil {
 		return -1, nil
@@ -114,4 +118,27 @@ func (s *productService) Delete(ctx context.Context, id string) (int64, error) {
 		}
 	}
 	return res, err
+}
+
+func checkProductGeneralReq(productGeneral ProductGeneral) error {
+	if productGeneral.Id == "" {
+		return errors.New("product request has no productId")
+	}
+
+	//count := 0
+	//v := reflect.ValueOf(productGeneral)
+	//values := make([]interface{}, v.NumField())
+	//
+	//for i := 0; i < v.NumField(); i++ {
+	//	values[i] = v.Field(i).Interface()
+	//	if values[i] == "" {
+	//		count++
+	//	}
+	//}
+	//
+	//if count == v.NumField() {
+	//	return errors.New("product general request has no data")
+	//}
+
+	return nil
 }

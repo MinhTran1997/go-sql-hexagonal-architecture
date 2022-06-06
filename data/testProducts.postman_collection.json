@@ -11,14 +11,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/products/P002",
+					"raw": "localhost:8081/products/P001",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
 						"products",
-						"P002"
+						"P001"
 					]
 				}
 			},
@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"P004\",\r\n    \"productName\": \"Silver Tiger\",\r\n    \"description\": \"beer\",\r\n    \"price\": \"500\",\r\n    \"status\": \"available\"\r\n}",
+					"raw": "{\r\n    \"GeneralInfo\": {\r\n        \"id\": \"P008\",\r\n        \"productName\": \"Heineken\",\r\n        \"description\": \"beer\",\r\n        \"price\": \"850\",\r\n        \"status\": \"available\"\r\n    },\r\n    \"DetailInfo\": {\r\n        \"productID\": \"P008\",\r\n        \"supplier\": \"ABC\",\r\n        \"storage\": \"ABC\",\r\n        \"inStockAmount\": 500\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -58,7 +58,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"P001\",\r\n    \"productName\": \"Iron Man Figure\",\r\n    \"description\": \"most expensive toys\",\r\n    \"price\": \"1500\",\r\n    \"status\": \"available\"\r\n}",
+					"raw": "{\r\n    \"GeneralInfo\": {\r\n        \"id\": \"P003\",\r\n        \"productName\": \"Biltwel exhaust 75hA\",\r\n        \"description\": \"exhaust\",\r\n        \"price\": \"2500\",\r\n        \"status\": \"available\"\r\n    },\r\n    \"DetailInfo\": {\r\n        \"productID\": \"P003\",\r\n        \"supplier\": \"BW inc.\",\r\n        \"storage\": \"south\",\r\n        \"inStockAmount\": 158\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,14 +66,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8081/products/P001",
+					"raw": "localhost:8081/products/P003",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
 						"products",
-						"P001"
+						"P003"
 					]
 				}
 			},
@@ -86,7 +86,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"status\": \"out of stock\"\r\n}",
+					"raw": "{\r\n    \"GeneralInfo\": {\r\n        \"description\": \"beer\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -131,14 +131,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/products/P004",
+					"raw": "localhost:8081/products/P008",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
 						"products",
-						"P004"
+						"P008"
 					]
 				}
 			},

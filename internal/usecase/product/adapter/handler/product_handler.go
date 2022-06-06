@@ -68,9 +68,9 @@ func (h *HttpProductHandler) Update(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
 		return
 	}
-	if len(product.Id) == 0 {
-		product.Id = id
-	} else if id != product.Id {
+	if len(product.GeneralInfo.Id) == 0 {
+		product.GeneralInfo.Id = id
+	} else if id != product.GeneralInfo.Id {
 		http.Error(w, "Id not match", http.StatusBadRequest)
 		return
 	}
@@ -97,9 +97,9 @@ func (h *HttpProductHandler) Patch(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, er1.Error(), http.StatusInternalServerError)
 		return
 	}
-	if len(product.Id) == 0 {
-		product.Id = id
-	} else if id != product.Id {
+	if len(product.GeneralInfo.Id) == 0 {
+		product.GeneralInfo.Id = id
+	} else if id != product.GeneralInfo.Id {
 		http.Error(w, "Id not match", http.StatusBadRequest)
 		return
 	}

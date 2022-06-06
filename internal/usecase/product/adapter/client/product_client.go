@@ -49,7 +49,7 @@ func (c *ProductClient) Create(ctx context.Context, Product *Product) (int64, er
 }
 
 func (c *ProductClient) Update(ctx context.Context, Product *Product) (int64, error) {
-	url := c.Url + "/" + Product.Id
+	url := c.Url + "/" + Product.GeneralInfo.Id
 	var res ResultInfo
 	err := client.Put(ctx, c.Client, url, Product, &res, c.Config, c.Log)
 	return res.Status, err
